@@ -23,3 +23,4 @@ export HOMEBREW_NO_INSECURE_REDIRECT=1
 bindkey -v
 export KEYTIMEOUT=1
 export PYTHON_CONFIGURE_OPTS="--enable-framework"
+export CLICOLOR=1
