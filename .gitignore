@@ -1,0 +1,9 @@
+plugged/
+<<<<<<< HEAD
+=======
+.zhistory
+.zcompdump
+.zcompdump.zwc
+.vim_mru_files
+.viminfo
+>>>>>>> 88694b8... removed .viminfo
