@@ -7,7 +7,6 @@
 call plug#begin('~/.vim/plugged')
 " make sure to use single quotes
 
-Plug 'alexpearce/gruvbox'
 Plug 'w0rp/ale'
 Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-commentary'
@@ -21,10 +20,10 @@ call plug#end()
 let g:ale_linters = {
   \ 'python': ['flake8'],
   \}
-let g:ale_sign_error = 'ϟ'
-let g:ale_sign_warning = '∗'
-highlight link ALEErrorSign diffRemoved
-highlight link ALEWarningSign diffChanged
+" let g:ale_sign_error = 'ϟ'
+" let g:ale_sign_warning = '∗'
+" highlight link ALEErrorSign diffRemoved
+" highlight link ALEWarningSign diffChanged
 
 """"""""""""""""""""""""""""""""""""""""
 " General configuration
