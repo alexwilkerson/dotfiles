@@ -5,3 +5,6 @@ zsh/.zcompdump.zwc
 vim/.vim_mru_files
 vim/.viminfo
 vim/.vim/.netrwhist
+vim/.vim/.undo
+vim/.vim/.backup
+vim/.vim/.swp
