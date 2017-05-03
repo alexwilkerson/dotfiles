@@ -17,6 +17,8 @@ call plug#end()
 " plug settings
 """"""""""""""""""""""""""""""""""""""""
 
+" only run on save
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
   \ 'python': ['flake8'],
   \}
@@ -24,6 +26,9 @@ let g:ale_linters = {
 " let g:ale_sign_warning = '∗'
 " highlight link ALEErrorSign diffRemoved
 " highlight link ALEWarningSign diffChanged
+
+" YCM disable preview window
+set completeopt-=preview
 
 """"""""""""""""""""""""""""""""""""""""
 " General configuration
