@@ -114,7 +114,7 @@ set display+=lastline
 """"""""""""""""""""""""""""""""""""""""
 
 " Share OS X clipboard
-" set clipboard+=unnamedplus
+set clipboard+=unnamed
 
 """"""""""""""""""""""""""""""""""""""""
 " Mappings
