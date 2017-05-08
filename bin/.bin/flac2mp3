@@ -6,7 +6,7 @@ clear
 
 for f in *.flac;
 do
-    echo "Processing:$f"
+    echo "Processing: $f"
     ffmpeg -v quiet -i "$f" -ab 320k -map_metadata 0 -id3v2_version 3 "${f%.flac}.mp3";
 done
 

@@ -21,6 +21,8 @@ export HOMEBREW_NO_INSECURE_REDIRECT=1
 
 # Vi mode
 bindkey -v
+# enable history search
+bindkey '^R' history-incremental-search-backward
 export KEYTIMEOUT=1
 
 export PYTHON_CONFIGURE_OPTS="--enable-framework"
