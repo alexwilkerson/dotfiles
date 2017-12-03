@@ -10,6 +10,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0rp/ale'
 Plug 'Valloric/YouCompleteMe'
 Plug 'tpope/vim-commentary'
+Plug 'scrooloose/nerdtree'
+Plug 'davidhalter/jedi-vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'reedes/vim-pencil'
+Plug 'plasticboy/vim-markdown'
 
 call plug#end()
 
@@ -29,10 +35,14 @@ let g:ale_linters = {
 
 " YCM disable preview window
 set completeopt-=preview
+" global .ycm_extra_conf.py file
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 
 """"""""""""""""""""""""""""""""""""""""
 " General configuration
 """"""""""""""""""""""""""""""""""""""""
+
+set nocompatible " use vim like it's 2017
 
 " UTF-8 encoding
 set encoding=utf-8
@@ -133,6 +143,60 @@ map q: :q
 nnoremap <leader>, :nohlsearch<cr>
 
 """"""""""""""""""""""""""""""""""""""""
+" Writing settings for txt files
+""""""""""""""""""""""""""""""""""""""""
+au BufRead,BufNewFile *.txt set spell
+
+""""""""""""""""""""""""""""""""""""""""
+" Goyo settings for Markdown files
+""""""""""""""""""""""""""""""""""""""""
+augroup markdown
+    autocmd!
+    autocmd Filetype markdown,mkd call SetUpMk()
+                              \ | call pencil#init()
+    autocmd Filetype text call SetUpMk()
+                      \ | call pencil#init()
+augroup END
+
+let g:pencil#wrapModeDefault = 'soft'   " default is 'hard'
+let g:pencil#concealcursor = 'n'  " n=normal, v=visual, i=insert, c=command (def) 
+
+function! SetUpMk()
+    " colorscheme pencil
+    " execute `Goyo` if it's not already active
+    if !exists('#goyo')
+        Goyo
+    endif
+endfunction
+
+function! GoyoBefore()
+  let b:quitting = 0
+  let b:quitting_bang = 0
+  autocmd QuitPre <buffer> let b:quitting = 1
+  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+endfunction
+
+function! GoyoAfter()
+  " Quit Vim if this is the only remaining buffer
+  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if b:quitting_bang
+      qa!
+    else
+      qa
+    endif
+  endif
+endfunction
+
+let g:goyo_callbacks = [function('GoyoBefore'), function('GoyoAfter')]
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+""""""""""""""""""""""""""""""""""""""""
 " Start Python PEP 8 stuff
 """"""""""""""""""""""""""""""""""""""""
 
@@ -205,3 +269,8 @@ set statusline=%<\ %f\ %m%r%y%w%=%l\/%-6L\ %3c\
 set fillchars=vert:\ ,stl:\ ,stlnc:\ 
 set laststatus=2
 set noshowmode
+
+filetype plugin indent on
+set shiftwidth=4
+set expandtab
+set tabstop=4

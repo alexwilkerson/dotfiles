@@ -1,0 +1,65 @@
+#!/usr/local/bin/python3
+
+import os
+from fuzzywuzzy import process
+
+counter = 1
+basepath = os.getcwd()
+filelist = []
+
+for fname in os.listdir(basepath):
+    path = os.path.join(basepath, fname)
+    if os.path.isdir(path):
+        continue
+    filelist.append(fname)
+
+if "organizer.py" in filelist:
+    filelist.remove("organizer.py")
+
+
+def print_files():
+    print()
+    for fname in filelist:
+        print(fname)
+    print()
+
+
+def get_file():
+    global counter
+    query = ""
+    while (query.strip() == ""):
+        query = input("enter file: ")
+        if query == "ls":
+            os.system('clear')
+            print_files()
+            query = ""
+        if query == "q":
+            if input("Quit? (y) ") == "y":
+                exit()
+            else:
+                query = ""
+
+    f = process.extractOne(query, filelist)[0]
+    print()
+    print(f)
+    inp = input("Is this correct? (press ENTER if correct) ")
+    if inp == "":
+        os.system('clear')
+        old_file = os.path.join(basepath, f)
+        print(old_file)
+        filelist.remove(f)
+        f = ("%02d. " % counter) + f
+        new_file = os.path.join(basepath, f)
+        print("renamed: {} to\n{}".format(old_file, new_file))
+        os.rename(old_file, new_file)
+        print_files()
+        counter += 1
+    else:
+        get_file()
+
+
+os.system('clear')
+print_files()
+
+while len(filelist) > 0:
+    get_file()
